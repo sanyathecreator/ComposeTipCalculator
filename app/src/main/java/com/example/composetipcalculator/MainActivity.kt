@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -26,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -75,12 +78,14 @@ fun TipCalculatorApp() {
             value = billInput,
             onValueChange = { billInput = it },
             label = R.string.bill_amount,
+            leadingIcon = R.drawable.money,
             modifier = Modifier.padding(vertical = 8.dp)
         )
         EditNumberField(
             value = tipInput,
             onValueChange = { tipInput = it },
             label = R.string.tip_percentage,
+            leadingIcon = R.drawable.percent,
             modifier = Modifier.padding(vertical = 8.dp)
         )
         RoundTheTipRow(
@@ -102,6 +107,7 @@ fun EditNumberField(
     value: String,
     onValueChange: (String) -> Unit,
     @StringRes label: Int,
+    @DrawableRes leadingIcon: Int,
     modifier: Modifier = Modifier,
 ) {
     TextField(
@@ -110,6 +116,7 @@ fun EditNumberField(
         modifier = modifier,
         onValueChange = onValueChange,
         label = { Text(text = stringResource(label)) },
+        leadingIcon = { Icon(painterResource(id =  leadingIcon), null) },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Done
