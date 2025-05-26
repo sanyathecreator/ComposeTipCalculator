@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,18 +69,18 @@ fun TipCalculatorApp() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Calculate tip"
+            text = stringResource(R.string.calculate_tip)
         )
         EditNumberField(
             value = billInput,
             onValueChange = { billInput = it },
-            label = "Bill amount",
+            label = R.string.bill_amount,
             modifier = Modifier.padding(vertical = 8.dp)
         )
         EditNumberField(
             value = tipInput,
             onValueChange = { tipInput = it },
-            label = "Tip percentage",
+            label = R.string.tip_percentage,
             modifier = Modifier.padding(vertical = 8.dp)
         )
         RoundTheTipRow(
@@ -87,7 +89,7 @@ fun TipCalculatorApp() {
             modifier = Modifier.padding(vertical = 8.dp)
         )
         Text(
-            text = tipAmount,
+            text = stringResource(R.string.tip_amount, tipAmount),
             style = MaterialTheme.typography.displaySmall,
             modifier = Modifier.padding(vertical = 8.dp)
 
@@ -99,7 +101,7 @@ fun TipCalculatorApp() {
 fun EditNumberField(
     value: String,
     onValueChange: (String) -> Unit,
-    label: String,
+    @StringRes label: Int,
     modifier: Modifier = Modifier,
 ) {
     TextField(
@@ -107,7 +109,7 @@ fun EditNumberField(
         singleLine = true,
         modifier = modifier,
         onValueChange = onValueChange,
-        label = { Text(text = label) },
+        label = { Text(text = stringResource(label)) },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Done
@@ -125,7 +127,7 @@ fun RoundTheTipRow(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = "Round up tip?")
+        Text(text = stringResource(R.string.round_up_tip))
         Switch(
             modifier = Modifier
                 .fillMaxWidth()
