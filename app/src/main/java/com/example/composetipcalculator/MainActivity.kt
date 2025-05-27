@@ -158,9 +158,13 @@ fun calculateTip(
     tipPercentage: Double,
     roundUp: Boolean = false,
 ): String {
-    val tip = amount * (tipPercentage / 100)
+    val tip = ensurePositive(amount) * (ensurePositive(tipPercentage) / 100)
     if (roundUp) {
         return NumberFormat.getCurrencyInstance().format(ceil(tip))
     }
     return NumberFormat.getCurrencyInstance().format(tip)
+}
+
+fun ensurePositive(value: Double): Double {
+    return if (value < 0) value * -1 else value
 }
