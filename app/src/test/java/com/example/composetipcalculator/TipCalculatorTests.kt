@@ -13,4 +13,19 @@ class TipCalculatorTests {
         val actualTip = calculateTip(amount, tipPercent, false)
         assertEquals(expectedTip, actualTip)
     }
+
+    @Test
+    fun ensurePositive_NegativeInput() {
+        val input = -5.0
+        val expected = 5.0
+        val actual = ensurePositive(input)
+        assertEquals(expected, actual)
+    }
+    @Test
+    fun ensurePositive_PositiveInput() {
+        val input = 5.0
+        val expected = 5.0
+        val actual = ensurePositive(input)
+        assertEquals(expected, actual)
+    }
 }
